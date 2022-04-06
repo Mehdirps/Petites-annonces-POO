@@ -9,5 +9,6 @@ Autoload::register();
 
 $model = new AnnoncesModel();
 
+$annonces = $model->findBy(['active' => 1]);
 
-var_dump($model->findAll());
+var_dump($annonces);

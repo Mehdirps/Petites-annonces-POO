@@ -16,6 +16,26 @@ class Model extends DataBase
         return $query->fetchAll();
     }
 
+    public function findBy(array $criteres)
+    {
+        $champs = [];
+        $valeurs = [];
+
+        foreach ($criteres as $champ => $valeur) {
+            $champs[] = "$champ = ?";
+            $valeurs[] = $valeur;
+        }
+
+        $liste_champs = implode(' AND ', $champs);
+
+        return $this->requete('SELECT * FROM ' . $this->table . 'WHERE' . $liste_champs, $valeur)->fetchAll();
+    }
+
+    public function find(int $id)
+    {
+        return $this->requete("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
+    }
+
     protected function requete(string $sql, array $attributs = null)
     {
         $this->db = DataBase::getInstance();
