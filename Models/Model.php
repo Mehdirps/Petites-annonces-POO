@@ -78,6 +78,40 @@ class Model extends DataBase
         return $this->requete("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
     }
 
+    public function create(Model $model)
+    {
+        /**
+         * Arguments
+         * 
+         * @param $champs Array with arguments
+         * @var mixed
+         */
+        $champs = [];
+        /**
+         * Value of arguments
+         * 
+         * @param $champs Array with value
+         * @var mixed
+         */
+        $valeurs = [];
+
+        $inter = [];
+
+        foreach ($model as $champ => $valeur) {
+
+            if ($valeur !== null && $champ !== 'db' && $champ !== 'table') {
+
+                $champs[] = $champ;
+                $inter[] = "?";
+                $valeurs[] = $valeur;
+            }
+        }
+
+        $liste_champs = implode(' , ', $champs);
+        $liste_inter = implode(' , ', $inter);
+
+        return $this->requete('INSERT INTO '.$this->table.' ('. $liste_champs.')VALUES ('.$liste_inter.')', $valeurs)->fetchAll();
+    }
     /**
      * SQL request method
      *
