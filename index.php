@@ -23,11 +23,18 @@ var_dump($annonces3);
 
 $model4 = new AnnoncesModel;
 
-$annonces4 = $model4
-    ->setTitle('Salut')
-    ->setDescription('Ceci est la description de "salut"')
-    ->setActive(1);
+$donnes = [
+    'title' => 'Annonce hydraté',
+    'description' => 'Description de l\'annonce hydraté',
+    'active' => 0
+];
+$annonces4 = $model4->hydrate($donnes);
+
+// $annonces4 = $model4
+//     ->setTitle('Salut')
+//     ->setDescription('Ceci est la description de "salut"')
+//     ->setActive(1);
 
 $model4->create($annonces4);
 
-var_dump($model4);
+var_dump($annonces4);

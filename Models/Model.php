@@ -110,8 +110,9 @@ class Model extends DataBase
         $liste_champs = implode(' , ', $champs);
         $liste_inter = implode(' , ', $inter);
 
-        return $this->requete('INSERT INTO '.$this->table.' ('. $liste_champs.')VALUES ('.$liste_inter.')', $valeurs)->fetchAll();
+        return $this->requete('INSERT INTO ' . $this->table . ' (' . $liste_champs . ')VALUES (' . $liste_inter . ')', $valeurs)->fetchAll();
     }
+
     /**
      * SQL request method
      *
@@ -132,5 +133,19 @@ class Model extends DataBase
 
             return $this->db->query($sql);
         }
+    }
+
+    public function hydrate(array $donnees)
+    {
+        foreach ($donnees as $key => $value) {
+            // ucfirst = uppercase first letter
+            $setter = 'set' . ucfirst($key);
+
+            if (method_exists($this, $setter)) {
+
+                $this->$setter($value);
+            }
+        }
+        return $this;
     }
 }
