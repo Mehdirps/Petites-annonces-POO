@@ -35,6 +35,16 @@ $annonces4 = $model4->hydrate($donnes);
 //     ->setDescription('Ceci est la description de "salut"')
 //     ->setActive(1);
 
-$model4->create($annonces4);
+// $model4->create($annonces4);
 
+$update_donnes = [
+    'title' => 'Annonce modifié',
+    'description' => 'Description de l\'annonce modifié',
+    'active' => 1
+];
+$annonces4 = $model4->hydrate($update_donnes);
+
+$annonces4->update(2, $annonces4);
+
+$annonces4->delete(15);
 var_dump($annonces4);
