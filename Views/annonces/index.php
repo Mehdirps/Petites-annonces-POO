@@ -1,1 +1,10 @@
-<p style="color: salmon; font-weight:bold;">Page d'accueil des annonces</p>
+<h1>Listes des annonces</h1>
+
+<?php foreach ($annonces as $annonce) : ?>
+
+    <article>
+        <h2><a href="/annonces/view/<?= $annonce->id ?>"><?= $annonce->title ?></a></h2>
+        <p><?= $annonce->description ?></p>
+    </article>
+
+<?php endforeach; ?>

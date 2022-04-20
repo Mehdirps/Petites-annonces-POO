@@ -32,7 +32,7 @@ class Main
             $action = (isset($params[0])) ? array_shift($params) : 'index';
 
             if(method_exists($controller, $action)){
-                (isset($params[0])) ? $controller->$action($params) : $controller->$action();
+                (isset($params[0])) ? call_user_func_array([$controller, $action] ,$params) : $controller->$action();
 
             }else{
                 http_response_code(404);
