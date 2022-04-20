@@ -1,0 +1,1 @@
+<p style="color: salmon; font-weight:bold;">Page d'accueil des annonces</p>

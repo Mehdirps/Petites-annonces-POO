@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\DataBase\DataBase;
+use App\Core\DataBase;
 
 /**
  * Method Model of DataBase request
@@ -22,6 +22,27 @@ class Model extends DataBase
      * @var string
      */
     private $db;
+
+    /**
+     * SQL request method
+     *
+     * @param string $sql sql request
+     * @param array|null $attributs arguments for the request
+     */
+    protected function requete(string $sql, array $attributs = null)
+    {
+        $this->db = DataBase::getInstance();
+
+        if ($attributs !== null) {
+
+            $query = $this->db->prepare($sql);
+            $query->execute($attributs);
+            return $query;
+        } else {
+
+            return $this->db->query($sql);
+        }
+    }
 
     /**
      * Find all datas of the table 
@@ -112,29 +133,6 @@ class Model extends DataBase
 
         return $this->requete('INSERT INTO ' . $this->table . ' (' . $liste_champs . ')VALUES (' . $liste_inter . ')', $valeurs)->fetchAll();
     }
-
-    /**
-     * SQL request method
-     *
-     * @param string $sql sql request
-     * @param array|null $attributs arguments for the request
-     * @return void
-     */
-    protected function requete(string $sql, array $attributs = null)
-    {
-        $this->db = DataBase::getInstance();
-
-        if ($attributs !== null) {
-
-            $query = $this->db->prepare($sql);
-            $query->execute($attributs);
-            return $query;
-        } else {
-
-            return $this->db->query($sql);
-        }
-    }
-
     public function hydrate(array $donnees)
     {
         foreach ($donnees as $key => $value) {
