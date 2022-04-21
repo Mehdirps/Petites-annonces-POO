@@ -6,6 +6,8 @@ class MainController extends Controller
 {
     public function index()
     {
-        echo "Page d'accueil";
+        $this->template = 'home';
+        
+        $this->render('main/index', [], 'home');
     }
 }

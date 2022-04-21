@@ -28,6 +28,9 @@
             </div>
         </div>
     </nav>
+    <div class="text-center">
+        <a href="/annonces" class="btn btn-primary">Voir la listes des annonces !</a>
+    </div>
     <section class="container">
         <?= $content ?>
     </section>
