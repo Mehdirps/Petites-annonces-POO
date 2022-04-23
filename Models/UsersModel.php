@@ -15,6 +15,17 @@ class UsersModel extends Model
         $class = str_replace(__NAMESPACE__ . '\\', '', __CLASS__);
         $this->table = strtolower(str_replace('Model', '', $class));
     }
+
+    /**
+     * Find a user with email
+     *
+     * @param string $email
+     * @return void
+     */
+    public function findOneByMail(string $email)
+    {
+        return $this->requete("SELECT * FROM {$this->table} WHERE email = ?", [$email])->fetch();
+    }
     /**
      * Get the value of id
      */

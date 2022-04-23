@@ -99,7 +99,7 @@ class Model extends DataBase
         return $this->requete("SELECT * FROM {$this->table} WHERE id = $id")->fetch();
     }
 
-    public function create(Model $model)
+    public function create()
     {
         /**
          * Arguments
@@ -118,7 +118,7 @@ class Model extends DataBase
 
         $inter = [];
 
-        foreach ($model as $champ => $valeur) {
+        foreach ($this as $champ => $valeur) {
 
             if ($valeur !== null && $champ !== 'db' && $champ !== 'table') {
 
@@ -133,7 +133,8 @@ class Model extends DataBase
 
         return $this->requete('INSERT INTO ' . $this->table . ' (' . $liste_champs . ')VALUES (' . $liste_inter . ')', $valeurs)->fetchAll();
     }
-    public function hydrate(array $donnees)
+
+    public function hydrate($donnees)
     {
         foreach ($donnees as $key => $value) {
             // ucfirst = uppercase first letter
@@ -146,20 +147,21 @@ class Model extends DataBase
         }
         return $this;
     }
-    public function update(int $id, Model $model)
+
+    public function update()
     {
         $champs = [];
         $valeurs = [];
 
         // On boucle pour éclater le tableau
-        foreach ($model as $champ => $valeur) {
+        foreach ($this as $champ => $valeur) {
             // UPDATE annonces SET titre = ?, description = ?, actif = ? WHERE id= ?
             if ($valeur !== null && $champ !== 'db' && $champ !== 'table') {
                 $champs[] = "$champ = ?";
                 $valeurs[] = $valeur;
             }
         }
-        $valeurs[] = $id;
+        $valeurs[] = $this->id;
 
         // On transforme le tableau "champs" en une chaine de caractères
         $liste_champs = implode(', ', $champs);
