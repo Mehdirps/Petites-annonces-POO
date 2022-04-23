@@ -109,7 +109,30 @@ class Form
         $this->formCode .= ">$value</textarea>";
 
         return $this;
+    }
 
+    public function addSelect(string $name, array $options, array $attributs): self
+    {
+        $this->formCode .= "<select name='$name'";
+
+        $this->formCode .= $attributs ? $this->addAttributs($attributs) . '>' : '>';
+
+        foreach ($options as $value => $text) {
+            $this->formCode .= "<option value='$value'>$text</option>";
+        }
+
+        $this->formCode .= "</select>";
+
+        return $this;
+    }
+
+    public function addButton(string $text, array $attributs = []): self
+    {
+        $this->formCode .= '<button ';
+
+        $this->formCode .= $attributs ? $this->addAttributs($attributs) : '';
+
+        $this->formCode .= ">$text</button";
         return $this;
     }
 }

@@ -15,8 +15,11 @@ class UsersController extends Controller
             ->addInput('email', 'email', ['class' => 'form-control'])
             ->addLabelFor('password', 'Mot de passe')
             ->addInput('password', 'password', ['class' => 'form-control'])
+            ->addLabelFor('message', 'Message')
+            ->addtextArea('message', '', ['class' => 'form-control'])
+            ->addButton('Envoyer le formulaire', ['class' => 'btn btn-primary'])
             ->endForm();
 
-        var_dump($form);
+        $this->render('users/login', ['loginForm' => $form->create()]);
     }
 }

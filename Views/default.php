@@ -24,6 +24,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/annonces">Listes de annonces</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/login">Connexion</a>
+                    </li>
                 </ul>
             </div>
         </div>
