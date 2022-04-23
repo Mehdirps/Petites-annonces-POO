@@ -9,15 +9,38 @@ class UsersController extends Controller
 {
     public function login()
     {
+
+        if (Form::validate($_POST, ['email', 'password'])) {
+
+            $usersModel = new UsersModel;
+            $userArray = $usersModel->findOneByMail(strip_tags($_POST['email']));
+
+            if (!$userArray) {
+                $_SESSION['error'] = 'L\'addresse e-mail ou/et le mot de passe est incorrecte';
+                header('Location: /users/login');
+                exit;
+            }
+
+            $user = $usersModel->hydrate($userArray);
+
+            if (password_verify($_POST['password'], $user->getPassword())) {
+                $user->setSession();
+                header('Location: /');
+                exit;
+            } else {
+                $_SESSION['error'] = 'L\'addresse e-mail ou/et le mot de passe est incorrecte';
+                header('Location: /users/login');
+                exit;
+            }
+        }
+
         $form = new Form;
 
-        $form->startForm('get', 'login.php', ['class' => 'login', 'id' => 'login'])
+        $form->startForm()
             ->addLabelFor('email', 'E-mail')
             ->addInput('email', 'email', ['class' => 'form-control'])
             ->addLabelFor('password', 'Mot de passe')
             ->addInput('password', 'password', ['class' => 'form-control'])
-            ->addLabelFor('message', 'Message')
-            ->addtextArea('message', '', ['class' => 'form-control'])
             ->addButton('Envoyer le formulaire', ['class' => 'btn btn-primary'])
             ->endForm();
 
@@ -56,5 +79,17 @@ class UsersController extends Controller
             ->endForm();
 
         $this->render('users/register', ['registerForm' => $form->create()]);
+    }
+
+    /**
+     * disconnect the user
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        unset($_SESSION['user']);
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit;
     }
 }
