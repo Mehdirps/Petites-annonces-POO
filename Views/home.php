@@ -41,6 +41,7 @@
                             <a class="nav-link" href="/users/register">Inscription</a>
                         </li>
                     <?php endif; ?>
+
                 </ul>
             </div>
         </div>
@@ -49,6 +50,22 @@
         <a href="/annonces" class="btn btn-primary">Voir la listes des annonces !</a>
     </div>
     <section class="container">
+        <?php
+        if (!empty($_SESSION['message'])) :
+        ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $_SESSION['message'];
+                unset($_SESSION['message']); ?>
+            </div>
+        <?php endif; ?>
+        <?php
+        if (!empty($_SESSION['error'])) :
+        ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $_SESSION['error'];
+                unset($_SESSION['error']); ?>
+            </div>
+        <?php endif; ?>
         <?= $content ?>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

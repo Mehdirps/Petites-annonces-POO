@@ -44,7 +44,7 @@ class Form
             if (in_array($attribut, $shorts) && $value == true) {
                 $str .= " $attribut";
             } else {
-                $str .= " $attribut='$value'";
+                $str .= " $attribut=\"$value\"";
             }
         }
 
@@ -118,7 +118,7 @@ class Form
         $this->formCode .= $attributs ? $this->addAttributs($attributs) . '>' : '>';
 
         foreach ($options as $value => $text) {
-            $this->formCode .= "<option value='$value'>$text</option>";
+            $this->formCode .= "<option value=\"$value\">$text</option>";
         }
 
         $this->formCode .= "</select>";

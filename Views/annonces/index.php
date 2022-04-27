@@ -1,5 +1,5 @@
 <h1>Listes des annonces</h1>
-
+<a href="/annonces/add">Ajouter une annonce</a>
 <?php foreach ($annonces as $annonce) : ?>
 
     <article>
