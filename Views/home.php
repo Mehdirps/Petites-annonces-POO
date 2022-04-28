@@ -26,7 +26,12 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <?php if (isset($_SESSION['user']) && !empty(['user'])) :  ?>
+                    <?php if (isset($_SESSION['user']) && !empty($_SESSION['user']['id'])) :  ?>
+                        <?php if (in_array('ROLE_ADMIN', $_SESSION['user']['roles'])) :  ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin">Administration</a>
+                            </li>
+                        <?php endif; ?>
                         <li class="nav-item">
                             <a class="nav-link" href="/users/profil">Profil</a>
                         </li>
@@ -41,14 +46,10 @@
                             <a class="nav-link" href="/users/register">Inscription</a>
                         </li>
                     <?php endif; ?>
-
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="text-center">
-        <a href="/annonces" class="btn btn-primary">Voir la listes des annonces !</a>
-    </div>
     <section class="container">
         <?php
         if (!empty($_SESSION['message'])) :
@@ -66,11 +67,14 @@
                 unset($_SESSION['error']); ?>
             </div>
         <?php endif; ?>
+        </div>
         <?= $content ?>
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <div class="text-center">
+        <a href="/annonces" class="btn btn-primary">Voir la listes des annonces !</a>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
 </html>

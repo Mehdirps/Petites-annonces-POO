@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Petites annonces</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,14 +24,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/annonces">Listes de annonces</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Accueil de l'administration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/users">Utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/annonces">Annonces</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <?php if (isset($_SESSION['user']) && !empty($_SESSION['user']['id'])) :  ?>
-                        <?php if (in_array('ROLE_ADMIN', $_SESSION['user']['roles'])) :  ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/admin">Administration</a>
-                            </li>
-                        <?php endif; ?>
+                    <?php if (isset($_SESSION['user']) && !empty(['user'])) :  ?>
                         <li class="nav-item">
                             <a class="nav-link" href="/users/profil">Profil</a>
                         </li>
