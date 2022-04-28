@@ -84,9 +84,13 @@ class AnnoncesController extends Controller
             }
 
             if ($annonce->users_id !== $_SESSION['user']['id']) {
-                $_SESSION['error'] = "Vous n'avez pas accès à cette page";
-                header('Location: /annonces');
-                exit;
+
+                if (!in_array('ROLE_ADMIN', $_SESSION['user']['roles'])) {
+
+                    $_SESSION['error'] = "Vous n'avez pas accès à cette page";
+                    header('Location: /annonces');
+                    exit;
+                }
             }
 
             if (Form::validate($_POST, ['title', 'description'])) {
@@ -123,9 +127,5 @@ class AnnoncesController extends Controller
             header('Location: /users/login');
             exit;
         }
-    }
-
-    public function delete($id)
-    {
     }
 }

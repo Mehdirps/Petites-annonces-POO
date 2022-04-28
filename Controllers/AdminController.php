@@ -14,6 +14,24 @@ class AdminController extends Controller
     }
 
     /**
+     * Role verification
+     *
+     * @return boolean
+     */
+    private function isAdmin()
+    {
+        if (isset($_SESSION['user']) && in_array('ROLE_ADMIN', $_SESSION['user']['roles'])) {
+
+            return true;
+        } else {
+
+            $_SESSION['error'] = "Vous n'avez pas accès à cette page";
+            header('Location: /');
+            exit;
+        }
+    }
+
+    /**
      * View all 'annonces'
      *
      * @return void
@@ -31,20 +49,45 @@ class AdminController extends Controller
     }
 
     /**
-     * Role verification
+     * Delete a 'annonce' if is admin
      *
-     * @return boolean
+     * @param int $id
+     * @return void
      */
-    private function isAdmin()
+    public function deleteAnnonce(int $id)
     {
-        if (isset($_SESSION['user']) && in_array('ROLE_ADMIN', $_SESSION['user']['roles'])) {
+        if ($this->isAdmin()) {
 
-            return true;
-        } else {
+            $annonce = new AnnoncesModel;
 
-            $_SESSION['error'] = "Vous n'avez pas accès à cette page";
-            header('Location: /');
-            exit;
+            $annonce->delete($id);
+
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    /**
+     * Active or disable a annonce
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function activeAnnonce(int $id)
+    {
+        if ($this->isAdmin()) {
+
+            $annoncesModel = new AnnoncesModel;
+
+            $annonceArray = $annoncesModel->find($id);
+
+            if ($annonceArray) {
+
+                $annonce = $annoncesModel->hydrate($annonceArray);
+
+                $annonce->setActive($annonce->getActive() ? 0 : 1);
+
+                $annonce->update();
+            }
         }
     }
 }

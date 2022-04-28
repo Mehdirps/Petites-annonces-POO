@@ -14,11 +14,11 @@
                 <td><?= $annonce->description ?></td>
                 <td>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault<?= $annonce->id ?>"  <?= $annonce->active ? 'checked' : '' ?>>
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault<?= $annonce->id ?>" <?= $annonce->active ? 'checked' : '' ?> data-id="<?= $annonce->id ?>">
                         <label class="form-check-label" for="flexSwitchCheckDefault<?= $annonce->id ?>"></label>
                     </div>
                 </td>
-                <td><a href="" class="btn btn-warning">Modifer</a><a href="" class="btn btn-danger">Supprimer</a></td>
+                <td><a href="/annonces/modify/<?= $annonce->id ?>" class="btn btn-warning">Modifer</a><a href="/admin/deleteAnnonce/<?= $annonce->id ?>" class="btn btn-danger">Supprimer</a></td>
             </tr>
         <?php endforeach; ?>
     </tbody>
